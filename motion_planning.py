@@ -138,9 +138,9 @@ class MotionPlanning(Drone):
         global_position_lat = self.global_position[1]
         global_position_alt = self.global_position[2]
 
-        # TODO: convert to current local position using global_to_local()
+        # convert to current local position using global_to_local()
         current_local_position = []
-        current_local_position = global_to_local (self.global_position, self.global_home)
+        current_local_position = global_to_local(self.global_position, self.global_home)
         
         print('global home {0}, position {1}, local position {2}'.format(self.global_home, self.global_position,
                                                                          self.local_position))
@@ -172,7 +172,7 @@ class MotionPlanning(Drone):
         goal_pos_global = [ goal_lon , goal_lat , 0.]
 
         goal_pos_local = []       
-        goal_pos_local = global_to_local (goal_pos_global,self.global_home)
+        goal_pos_local = global_to_local(goal_pos_global,self.global_home)
          
         north_goal = int(goal_pos_local[0])
         easth_goal = int(goal_pos_local[1])
@@ -189,7 +189,7 @@ class MotionPlanning(Drone):
         pruned_path = prune_path(path)
 
         # Convert path to waypoints
-        waypoints = [[p[0] + north_offset, p[1] + east_offset, TARGET_ALTITUDE, 0] for p in path]
+        waypoints = [[p[0] + north_offset, p[1] + east_offset, TARGET_ALTITUDE, 0] for p in pruned_path]
         # Set self.waypoints
         self.waypoints = waypoints
         # send waypoints to sim (this is just for visualization of waypoints)
